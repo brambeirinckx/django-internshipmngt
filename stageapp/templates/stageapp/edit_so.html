@@ -1,0 +1,38 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block page_header %}
+    <link rel="stylesheet" href="{% static 'css/stagecustom.css' %}" type="text/css" />
+    <h1>Update Stageopdracht</h1>
+    <table colspan="3">
+        <tr>
+            <td>
+                <a href="{% url 'stageapp:view_so_calevents' so.id %}" role="button" class='icon-button'><i class="fa-solid fa-calendar">  View events</i></a>
+            </td>
+            <td>
+                <a href="{% url 'stageapp:opdracht_assign_evaluatie_template' so.id %}" role="button" class='icon-button'><i class="fa-solid fa-certificate">  Assign Evaluatie Template</i></a>
+            </td>
+            <td>
+                <a href="{% url 'stageapp:opdracht_evaluatie' so.id %}" role="button" class='icon-button'><i class="fa-solid fa-file">  Evaluatie</i></a>
+            </td>
+        </tr>
+    </table>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container mt-1" style="width:95%; font-size:12px">
+    <form action="{% url 'stageapp:edit_so' so.id %}" method="POST" class='card p-3 mt-1'>
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:lijst_stageopdrachten' so.bedrijfsvestingen_id %}" role="button" class='btn btn-primary mt-3'>Terug naar Stageopdrachten overzicht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+
+{% endblock content %}
+

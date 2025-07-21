@@ -1,0 +1,51 @@
+{% extends 'stageapp/base.html' %}
+
+{% block page_header %}
+    <h1> Opleidingen </h1>
+    <h8>School: {{ s.school_naam }} </h8>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="card mb-3">
+        <table>
+            <th class="card-header">Opleiding</th>
+            <th class="card-header">Graad</th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for o in o_en %}
+                    <tr>
+                        <td>{{ o.opleiding }}</td>
+                        <td>{{ o.graad }}</td>
+                        <td><small> <a href="{% url 'stageapp:edit_opleiding' o.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:delete_opleiding' o.id %}"><i class="fas fa-trash"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:view_klassen' o.id %}"><i class="fas fa-binoculars"></i></a></small></td>
+                    </tr>
+
+                {% empty %}
+                    <td>Er zijn nog geen opleidingen.</td>
+                {% endfor %}
+                </div>
+         </table>
+    </div>
+    <div>
+        <p class="pt-2">
+            <a href="{% url 'stageapp:view_scholen' sg.id %}" class='btn btn-primary mt-3'>Naar scholen overzicht</a>
+            <a href="{% url 'stageapp:create_opleiding' s.id %}" class='btn btn-primary mt-3'>Toevoegen Opleiding</a>
+            <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+        </p>
+    </div>
+
+    <hr>
+
+
+{% endblock content %}

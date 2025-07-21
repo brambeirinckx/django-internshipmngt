@@ -1,0 +1,63 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Klassen lijst
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Klassen lijst</h1>
+    <h8>School: {{ school.school_naam }} > Opleiding: {{ opleiding.opleiding }} </h8>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+        <table>
+            <th class="card-header">Klas</th>
+            <th class="card-header">Omschrijving</th>
+            <th class="card-header">Schooljaar</th>
+            <th class="card-header">Opleidingsjaar</th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for k in klassen %}
+                    <tr>
+                        <td>{{ k.klas }}</a></td>
+                        <td>{{ k.klas_omschrijving }}</td>
+                        <td>{{ k.schooljaren }}</td>
+                        <td>{{ k.opleidingsjaar }}</td>
+                        <td><small> <a href="{% url 'stageapp:edit_klas' k.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:delete_klas' k.id %}"><i class="fas fa-trash"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:view_studenten' k.id %}"><i class="fa-solid fa-people-group"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:view_leerkrachten' k.id %}"><i class="fa-solid fa-user-tie"></i></a></small></td>
+                    </tr>
+
+                {% empty %}
+                    <tr colspan="5">
+                        <td>Er zijn nog geen klassen.</td>
+                    </tr>
+                {% endfor %}
+                </div>
+         </table>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:view_opleidingen' opleiding.scholen_id %}" class='btn btn-primary mt-3'>Naar opleidingen overzicht</a>
+        <a href="{% url 'stageapp:create_klas' opleiding.id %}" class='btn btn-primary mt-3'>Toevoegen klas</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

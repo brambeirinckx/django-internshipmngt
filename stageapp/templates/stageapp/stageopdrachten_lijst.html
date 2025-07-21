@@ -1,0 +1,64 @@
+{% extends 'stageapp/base.html' %}
+{% load static %}
+
+{% block page_header %}
+    <link rel="stylesheet" href="{% static 'css/stagecustom.css' %}" type="text/css" />
+    <h1>{{bv.bedrijfsnaam}}: Stageopdrachten </h1>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="card mb-3">
+        <table>
+            <th class="card-header">Afdeling</th>
+            <th class="card-header">Contactpersoon</th>
+            <th class="card-header">Leerkracht</th>
+            <th class="card-header">Opdracht</th>
+            <th class="card-header">Actief</th>
+            <th class="card-header">Afgesloten</th>
+            <th class="card-header"></th>
+              <style>
+                    tr:nth-of-type(even) {
+                    background-color:#33fff6;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+              </style>
+                {% for so in so_en %}
+                    <tr>
+                        <td>{{ so.afdelingen }}</td>
+                        <td>{{ so.contactpersonen }}</td>
+                        <td>{{ so.leerkrachten }}</td>
+                        <td><small>{{ so.stage_opdracht }}</small></td>
+                        {% if so.actief %}
+                            <td><input type ="checkbox" checked disabled="disabled"></td>
+                        {% else %}
+                            <td><input type ="checkbox" unchecked disabled="disabled"</td>
+                        {% endif %}
+                        {% if so.stage_opdracht_afgesloten %}
+                            <td><input type ="checkbox" checked disabled="disabled"></td>
+                        {% else %}
+                            <td><input type ="checkbox" unchecked disabled="disabled"></td>
+                        {% endif %}
+                        <td>
+                            <small> <a href="{% url 'stageapp:edit_so' so.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small>
+                            <small><a href="{% url 'stageapp:delete_so' so.id %}"><i class="fas fa-trash"></i></a></small
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>Er zijn nog geen stageopdrachten.</td>
+                    </tr>
+                {% endfor %}
+         </table>
+    </div>
+    <hr>
+        <a href="{% url 'stageapp:bedrijvengroep_alldata' bv.bedrijvengroep_id %}" class='btn btn-primary mt-3'>Naar bedrijven groep</a>
+        <a href="{% url 'stageapp:nieuwe_opdracht' bv.id %}"  class='btn btn-primary mt-3'>Toevoegen Opdracht</a>
+
+<div>
+    <p class="pt-2">
+      <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+{% endblock content %}

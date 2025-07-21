@@ -1,0 +1,50 @@
+{% extends 'stageapp/base.html' %}
+
+{% block page_header %}
+    <h1> Stageopdrachten </h1>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="card mb-3">
+        <table>
+            <th class="card-header">Bedrijf</th>
+            <th class="card-header">Afdeling</th>
+            <th class="card-header">Contactpersoon</th>
+            <th class="card-header">Leerkracht</th>
+            <th class="card-header">Opdracht</th>
+            <th class="card-header">Actief</th>
+            <th class="card-header">Afgesloten</th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for so in so_en %}
+                    <tr>
+                        <td>{{ so.bedrijfsvestingen }}</td>
+                        <td>{{ so.afdelingen }}</td>
+                        <td>{{ so.contactpersonen }}</td>
+                        <td>{{ so.leerkrachten }}</td>
+                        <td>{{ so.stage_opdracht }}</td>
+                        <td>{{ so.actief }}</td>
+                        <td>{{ so.stage_opdracht_afgesloten }}</td>
+                        <td><small> <a href="{% url 'stageapp:edit_so' so.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:delete_so' so.id %}"><i class="fas fa-trash"></i></a></small></td>
+                    </tr>
+
+                {% empty %}
+                    <td>Er zijn nog geen stageopdrachten.</td>
+                {% endfor %}
+                </div>
+         </table>
+    </div>
+    <hr>
+    <a href="{% url 'stageapp:nieuwe_opdracht' %}" class='btn btn-primary mt-3'>Toevoegen Opdracht</a>
+
+{% endblock content %}

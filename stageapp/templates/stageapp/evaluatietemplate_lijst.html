@@ -1,0 +1,54 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Selecteer Evaluatie Template voor de stageopdracht
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Assigneer de evaluatie template voor stageopdracht '{{ so.stage_opdracht }}'</h1>
+    <h3>Beschikbare templates: {{ sg.scholen_groep_naam }}</h3>
+
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+        <table>
+            <th class="card-header">Template naam</th>
+            <th class="card-header">Omschrijving</th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for t in et %}
+                    <tr>
+                        <td>{{ t.template_naam }}</a></td>
+                        <td>{{ t.template_omschrijving }}</td>
+                        <td>
+                            <small> <a href="{% url 'stageapp:view_evaluatie_template_details' t.id %}"><i class="fa-solid fa-magnifying-glass"></i></a></small>
+                            <small> <a href="{% url 'stageapp:assign_template_details' so.id t.id %}"><i class="fa-solid fa-share"></i></a></small>
+                        </td>
+                    </tr>
+
+                {% empty %}
+                    <td>Er zijn nog geen templates opgezet.</td>
+                {% endfor %}
+                </div>
+         </table>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:edit_so' so.id %}" role="button" class='btn btn-primary mt-3'>Terug naar StageOpdracht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

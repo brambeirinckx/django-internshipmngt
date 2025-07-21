@@ -1,0 +1,27 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block page_header %}
+    <link rel="stylesheet" href="{% static 'css/stagecustom.css' %}" type="text/css" />
+    <h1>Update Calendar Event</h1>
+    <h8><small>Stageopdracht: {{ so.stage_opdracht }}</small></h8>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container mt-1" style="width:95%; font-size:12px">
+    <form action="{% url 'stageapp:edit_so_calevents' soce.id %}" method="POST" class='card p-3 mt-1' enctype="multipart/form-data">
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:edit_so' so.id %}" role="button" class='btn btn-primary mt-3'>Terug naar Stageopdrachten overzicht</a>
+        <a href="{% url 'stageapp:view_so_calevents' so.id %}" role="button" class='btn btn-primary mt-3'>Terug naar events overzicht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+{% endblock content %}
+

@@ -1,0 +1,65 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Leerkrachten Lijst
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Leerkrachten lijst</h1>
+    <h8>School: {{ school.school_naam }}</h8>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+        <table>
+            <th class="card-header">Naam</th>
+            <th class="card-header">Voornaam</th>
+            <th class="card-header">Adres</th>
+            <th class="card-header">Tel</th>
+            <th class="card-header">Actief</th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for s in leerkrachten %}
+                    <tr>
+                        <td>{{ s.naam }}</td>
+                        <td>{{ s.voornaam }}</td>
+                        <td>{{ s.adres }}  {{s.nummer}},  {{s.postcode}} {{s.plaats}}</td>
+                        <td>{{ s.tel }}</td>
+                        {% if s.actief %}
+                            <td><input type ="checkbox" checked disabled="disabled"></td>
+                        {% else %}
+                            <td><input type ="checkbox" unchecked disabled="disabled"</td>
+                        {% endif %}
+                        <td><small> <a href="{% url 'stageapp:edit_sch_leerkracht' s.id school.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:delete_leerkracht' s.id %}"><i class="fas fa-trash"></i></a></small></td>
+                    </tr>
+
+                {% empty %}
+                    <tr colspan="7">
+                        <td>Er zijn nog geen Leerkrachten.</td>
+                    </tr>
+                {% endfor %}
+                </div>
+         </table>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:view_scholen' sg.id %}" class='btn btn-primary mt-3'>Naar scholen overzicht</a>
+        <a href="{% url 'stageapp:create_sch_leerkracht' school.id %}" class='btn btn-primary mt-3'>Toevoegen Leerkracht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

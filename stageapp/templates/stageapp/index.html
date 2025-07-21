@@ -1,0 +1,10 @@
+{% extends 'stageapp/base.html' %}
+
+{% block page_header %}
+  <div class="jumbotron">
+    <h1 CLASS="display-3">Opvolging Stageopdrachten</h1>
+      <p class="lead">Aanmaken, opvolgen en evalueren van stageopdrachten.</p>
+      <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+         role="button">Register &raquo;</a>
+  </div>
+{% endblock page_header %}

@@ -1,0 +1,60 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Bedrijfsvestingen
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Bedrijfsgroep:  </h1>
+    <h2>Vesting: Bedrijfsvestingen</h2>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+        <table>
+            <th class="card-header">Bedrijfsnaam</th>
+            <th class="card-header">Adres</th>
+            <th class="card-header">Email</th>
+            <th class="card-header">Tel</th>
+            <th class="card-header">Website</th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for vesting in vestingen %}
+                    <tr>
+                        <td><a class="text-reset" href="{{ Bedrijfsvesting.get_absolute_url }}">{{ vesting.Vest }}</a></td>
+                        <td>{{ vesting.adres }}  {{vesting.nummer}},  {{vesting.postcode}} {{vesting.plaats}}</td>
+                        <td>{{ vesting.email</td>
+                        <td>{{ vesting.tel</td>
+                        <td>{{ vesting.website</td>
+                        <td><small> <a href="{% url 'stageapp:vesting_detail' vesting.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:delete_vesting' vesting.id %}"><i class="fas fa-trash"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:bedrijvengroep_alldata' vesting.bedrijvengroep_id %}"><i class="fas fa-binoculars"></i></a></small></td>
+                    </tr>
+
+                {% empty %}
+                    <td>Er zijn nog geen bedrijfsvestingen.</td>
+                {% endfor %}
+                </div>
+         </table>
+</div>
+    <hr>
+    <a href="{% url 'stageapp:create_bedrijvengroep' %}" class='btn btn-primary mt-3'>Toevoegen bedrijvengroep</a>
+<div>
+    <p class="pt-2">
+      <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

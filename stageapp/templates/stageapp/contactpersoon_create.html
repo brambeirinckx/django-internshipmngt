@@ -1,0 +1,33 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Nieuwe Contactpersoon{% endblock %}
+{% block page_header %}
+    <h1>{{bv.bedrijfsnaam}}: Nieuwe Contactpersoon </h1>
+{% endblock page_header %}
+
+
+{% block content %}
+   <div class="container mt-3" style="width:95%; font-size:12px">
+
+      <form action="" method="post" class='card p-3 mt-5'>
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field.errors }}
+          {{ hidden_field }}
+        {% endfor %}
+
+        {% csrf_token %}
+
+        {{ form.non_form_errors }}
+
+          {{ field.errors }}
+
+        {% crispy form %}
+
+      </form>
+    </div>
+
+    <div>
+      <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Cancel</a>
+    </div>
+{% endblock content %}

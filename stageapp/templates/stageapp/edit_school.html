@@ -1,0 +1,26 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block page_header %}
+    <link rel="stylesheet" href="{% static 'css/stagecustom.css' %}" type="text/css" />
+    <h1>Update School '{{ s.school_naam }}'</h1>
+    <h8><small>Scholengroep: {{ sg.scholen_groep_naam }}</small></h8>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container mt-1" style="width:95%; font-size:12px">
+    <form action="{% url 'stageapp:edit_school' s.id %}" method="POST" class='card p-3 mt-1'>
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:view_scholen' sg.id %}" role="button" class='btn btn-primary mt-3'>Terug naar scholen overzicht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+{% endblock content %}
+

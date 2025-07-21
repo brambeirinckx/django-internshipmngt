@@ -1,0 +1,22 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_header %}
+    <h1> Aanmaak nieuwe scholengroep</h1>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container mt-3" style="width:95%; font-size:12px">
+    <form action = "{% url 'stageapp:create_scholengroep'%}" method='POST' class='card p-3 mt-5'>
+        {% csrf_token %}
+        {% crispy form %}
+        <hr>
+    </form>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:view_scholengroepen' %}" role="button" class='btn btn-primary mt-3'>Terug naar scholengroep overzicht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+{% endblock content %}

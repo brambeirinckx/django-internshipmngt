@@ -1,0 +1,35 @@
+from django.contrib import admin
+from .models import Afspraken, Afdelingen, Bedrijfsvestingen, BedrijvenGroep, Contactpersonen, EvaluatieCriteria, EvaluatieScoreRange, EvaluatieTemplateDetails, EvaluatieTemplateHoofddeel, EvaluatieTemplateSubdeel, EvaluatieTemplates, Klassen, Leerkrachten, Opleidingen, Scholen, ScholenGroep, Schooljaren, ScoreType, StageOpdrachtCalevents, StageOpdrachtEvaluatieDetails, StageOpdrachtEvaluaties, StageOpdrachten, StageOppKandidaten, StageOpportuniteiten, Studenten, TaakType, Taken
+#from .models import KlasLeerkrachten, KlasStudenten #This was replaced by a manytomanyrelationship
+
+# Register your models here.
+admin.site.register(Afspraken)
+admin.site.register(Afdelingen)
+admin.site.register(Bedrijfsvestingen)
+admin.site.register(BedrijvenGroep)
+admin.site.register(Contactpersonen)
+admin.site.register(EvaluatieCriteria)
+admin.site.register(EvaluatieScoreRange)
+admin.site.register(EvaluatieTemplateDetails)
+admin.site.register(EvaluatieTemplateHoofddeel)
+admin.site.register(EvaluatieTemplateSubdeel)
+admin.site.register(EvaluatieTemplates)
+admin.site.register(Klassen)
+admin.site.register(Leerkrachten)
+admin.site.register(Opleidingen)
+admin.site.register(Scholen)
+admin.site.register(ScholenGroep)
+admin.site.register(Schooljaren)
+admin.site.register(ScoreType)
+admin.site.register(StageOpdrachtCalevents)
+admin.site.register(StageOpdrachtEvaluatieDetails)
+admin.site.register(StageOpdrachtEvaluaties)
+admin.site.register(StageOpdrachten)
+admin.site.register(StageOppKandidaten)
+admin.site.register(StageOpportuniteiten)
+admin.site.register(Studenten)
+admin.site.register(TaakType)
+admin.site.register(Taken)
+
+#admin.site.register(KlasLeerkrachten)
+#admin.site.register(KlasStudenten)
