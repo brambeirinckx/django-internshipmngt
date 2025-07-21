@@ -1,0 +1,59 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Evaluatie Template
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Evaluatie Template '{{ et.template_naam }}'</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+    <table colspan ="50">
+        <th class="card-header" colspan="1">Categorie</th>
+        <th class="card-header" colspan="1">Sub Categorie</th>
+        <th class="card-header" colspan="46">Criteria</th>
+        <th class="card-header" colspan="2">Score range</th>
+
+        <div class="card-body">
+
+            {% for hoofddeel in dic_data.hoofddelen %}
+                <tr>
+                    <td colspan="50'"><h6>{{ hoofddeel.title }}</h6></td>
+                </tr>
+                {% for sub in hoofddeel.subdelen %}
+                    <tr>
+                        <td colspan="1"></td>
+                        <td colspan = '49'><h8>{{ sub.title }}</h8></td>
+                    </tr>
+                    {% for crit in sub.criteria %}
+                        <tr>
+                            <td colspan='1'><small></small></td>
+                            <td colspan='1'><small></small></td>
+                            <td colspan='46'><small>{{ crit.title }}</small></td>
+                            <td colspan='2'><small>{{ crit.score_range }}</small></td>
+                        </tr>
+                    {% empty %}
+                        <td>Er zijn nog geen criteria opgezet.</td>
+                    {% endfor %}
+                {% empty %}
+                    <td>Er zijn nog geen sub categoriën  opgezet.</td>
+                {% endfor %}
+            {% empty %}
+                <td>Er zijn nog geen hoofd categoriën  opgezet.</td>
+            {% endfor %}
+        </div>
+    </table>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:opdracht_assign_evaluatie_template' et.scholengroep_id %}"  class='btn btn-primary mt-3'>Terug naar template overzicht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Contactpersonen
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>{{bv.bedrijfsnaam}}: Contactpersonen</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+        <table>
+            <th class="card-header">Voornaam - Naam</th>
+            <th class="card-header">email</th>
+            <th class="card-header">tel</th>
+            <th class="card-header">actief</th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for contact in contactpersonen %}
+                    <tr>
+                        <td>{{ contact.voornaam }}  {{contact.naam}}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.tel}}</td>
+                        {% if contact.actief %}
+                            <td><input type ="checkbox" checked disabled="disabled"></td>
+                        {% else %}
+                            <td><input type ="checkbox" unchecked disabled="disabled"</td>
+                        {% endif %}
+                        <td><small> <a href="{% url 'stageapp:contactpersoon_detail' contact.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                        <td><small><a href="{% url 'stageapp:delete_contactpersoon' contact.id %}"><i class="fas fa-trash"></i></a></small></td>
+                        </tr>
+
+                {% empty %}
+                    <tr>
+                        <td>Er zijn nog geen contactpersonen.</td>
+                    </tr>
+                {% endfor %}
+                </div>
+         </table>
+</div>
+    <hr>
+        <a href="{% url 'stageapp:bedrijvengroep_alldata' bv.bedrijvengroep_id %}" class='btn btn-primary mt-3'>Naar bedrijven groep</a>
+        <a href="{% url 'stageapp:create_contactpersoon' bv.id %}" class='btn btn-primary mt-3'>Toevoegen contactpersoon</a>
+<div>
+    <p class="pt-2">
+      <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

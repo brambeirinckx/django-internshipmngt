@@ -1,0 +1,16 @@
+{% extends 'stageapp/base.html' %}
+
+{% block page_header %}
+    <h1> Stageopdracht '{{ so.stageopdrachten }}' Evaluatie Criteria </h1>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="container mt-1" style="width:95%; font-size:12px">
+        <form action = "" method='POST' class='card p-3 mt-1'>
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
+    <hr>
+
+{% endblock content %}

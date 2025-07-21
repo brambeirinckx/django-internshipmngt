@@ -1,0 +1,63 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Overzicht geregistreerde events voor stageopdracht {{ so.stage_opdracht }}
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Overzicht geregistreerde events </h1>
+    <h8>Stageopdracht: {{ so.stage_opdracht }} > Student: {{ so.studenten }} > Begeleider: {{ so.contactpersonen }} > Student Begeleider: {{ so.leerkrachten }}</h8>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+        <table>
+            <th class="card-header">Event Type</th>
+            <th class="card-header">Event</th>
+            <th class="card-header">Event Van</th>
+            <th class="card-header">Event Tot</th>
+            <th class="card-header"></th>
+            <th class="card-header"></th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for x in soce %}
+                    <tr>
+                        <td>{{ x.event_type }}</a></td>
+                        <td>{{ x.event }}</td>
+                        <td>{{ x.event_van }}</td>
+                        <td>{{ x.event_tot }}</td>
+                        <td><small> <a href="{% url 'stageapp:edit_so_calevents' x.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                        <td><small> <a href="{% url 'stageapp:delete_so_calevents' x.id %}"><i class="fa-solid fa-trash"></i></a></small></td>
+                    </tr>
+
+                {% empty %}
+                    <tr>
+                        <td colspan="5">Er zijn nog geen kalender events opgezet.</td>
+                    </tr>
+                {% endfor %}
+                </div>
+         </table>
+</div>
+<div>
+    <p class="pt-2">
+        <table>
+            <tr>
+                <td><a href="{% url 'stageapp:edit_so' so.id %}" role="button" class='btn btn-primary mt-3'>Terug naar StageOpdracht</a></td>
+                <td><a href="{% url 'stageapp:create_so_calevents' so.id %}" role="button" class='btn btn-primary mt-3'>Aanmaken nieuw event</a></td>
+            </tr>
+        </table>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

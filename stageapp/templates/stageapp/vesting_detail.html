@@ -1,0 +1,30 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_header %}
+    <h1> Update Vesting {{ vesting.bedrijfsnaam }} </h1>
+{% endblock page_header %}
+
+{% block content %}
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="container mt-1" style="width:95%; font-size:12px">
+        <form action="{% url 'stageapp:vesting_detail' vesting.id %}" method="POST" class='card p-3 mt-1'>
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
+    <div>
+        <p class="pt-2">
+          <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+        </p>
+    </div>
+
+{% endblock content %}

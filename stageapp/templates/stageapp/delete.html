@@ -1,0 +1,16 @@
+{% extends 'stageapp/base.html' %}
+
+{% block page_header %}
+    <h1>Delete Entry</h1>
+    <hr>
+{% endblock page_header %}
+
+{% block content %}
+    <form method="POST" action =''>
+        {% csrf_token %}
+        <p>Ben je zeker dat je de record "{{obj}}" wilt verwijderen?</p>
+        <hr>
+        <a class = "btn btn-primary mt-3" href="{{request.META.HTTP_REFERER}}">Ga terug</a>
+        <input class="btn btn-primary mt-3" type = "submit" value="Bevestig delete" />
+    </form>
+{% endblock content %}

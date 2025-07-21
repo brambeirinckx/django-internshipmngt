@@ -1,0 +1,24 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_header %}
+    <h1>Update Stageopdracht</h1>
+    <a href="{% url 'stageapp:opdracht_assign_evaluatie_template' so.id %}" role="button" class='btn btn-primary mt-2'><i class="fa-solid fa-certificate"></i></a>
+    <a href="{% url 'stageapp:opdracht_evaluatie' so.id %}" role="button" class='btn btn-primary mt-2'><i class="fa-solid fa-file"></i></a>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container mt-1" style="width:95%; font-size:12px">
+    <form action="{% url 'stageapp:edit_so' so.id %}" method="POST" class='card p-3 mt-1'>
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:lijst_stageopdrachten' so.bedrijfsvestingen_id %}" role="button" class='btn btn-primary mt-3'>Terug naar Stageopdrachten overzicht</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+
+{% endblock content %}
+

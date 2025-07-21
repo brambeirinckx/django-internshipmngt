@@ -1,0 +1,50 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Evaluatie Template
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Evaluatie Template '{{ et.template_naam }}'</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+        <table>
+            <th class="card-header">Categorie</th>
+            <th class="card-header">Subcategorie</th>
+            <th class="card-header">Criteria</th>
+            <th class="card-header">Score range</th>
+            <div class="card-body">
+                <style>
+                    tr:nth-of-type(even) {
+                    background-color:#B0C4DE;
+                    }
+                    .checked {
+                        color: blue;
+                            }
+                </style>
+                {% for x in etd %}
+                    <tr>
+                        <td><small>{{ x.hoofddeel }}</small></td>
+                        <td><small>{{ x.subdeel }}</small></td>
+                        <td><small>{{ x.criteria }}</small></td>
+                        <td><small>{{ x.score_range }}</small></td>
+                    </tr>
+
+                {% empty %}
+                    <td>Er zijn nog geen criteria opgezet.</td>
+                {% endfor %}
+                </div>
+         </table>
+</div>
+<div>
+    <p class="pt-2">
+      <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}

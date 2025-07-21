@@ -1,0 +1,15 @@
+.flex-box {
+  display:flex;
+  justify-content:space-between;
+}
+
+.flex-box-2 {
+  display:flex;
+  justify-content: flex-end;
+  outline: 2px deeppink dashed;
+}
+
+.btn-right {
+    display:flex;
+    justify-content:right;
+}

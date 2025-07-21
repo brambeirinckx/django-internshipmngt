@@ -1,0 +1,76 @@
+{% extends 'stageapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Evaluatie Template
+{% endblock title %}
+
+
+{% block page_header %}
+    <h1>Evaluatie Stageopdracht</h1>
+    <h8>Stageopdracht: {{ so.stage_opdracht }} > Student: {{ so.studenten }} > Begeleider: {{ so.contactpersonen }} > Student Begeleider: {{ so.leerkrachten }}</h8>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="card mb-3">
+    <table colspan ="50">
+        <th class="card-header" colspan="1">Categorie</th>
+        <th class="card-header" colspan="1">Sub Categorie</th>
+        <th class="card-header" colspan="46">Criteria</th>
+        <th class="card-header" colspan="2">Score range</th>
+        <th class="card-header" colspan="2">Score</th>
+        <th class="card-header" colspan="2">Score NVT</th>
+        <th class="card-header" colspan="2">Score Argumentatie</th>
+        <th class="card-header" colspan="2">Score Opmerking</th>
+        <th class="card-header" colspan="1"></th>
+        <th class="card-header" colspan="1"></th>
+        <div class="card-body">
+
+            {% for hoofddeel in dic_data.hoofddelen %}
+                <tr>
+                    <td colspan="50'"><h6>{{ hoofddeel.title }}</h6></td>
+                </tr>
+                {% for sub in hoofddeel.subdelen %}
+                    <tr>
+                        <td colspan="1"></td>
+                        <td colspan = '49'><h8>{{ sub.title }}</h8></td>
+                    </tr>
+                    {% for crit in sub.criteria %}
+                        <tr>
+                            <td colspan='1'><small></small></td>
+                            <td colspan='1'><small></small></td>
+                            <td colspan='46'><small>{{ crit.title }}</small></td>
+                            <td colspan='2'><small>{{ crit.score_range }}</small></td>
+                            <td colspan='2'><small>{{ crit.score }}</small></td>
+                            {% if crit.score_nvt %}
+                                <td colspan='2'><small><input type ="checkbox" checked disabled="disabled"></td>
+                            {% else %}
+                                <td colspan='2'><small><input type ="checkbox" unchecked disabled="disabled"</td>
+                            {% endif %}
+                            <td colspan='2'><small>{{ crit.score_argumentatie }}</small></td>
+                            <td colspan='2'><small>{{ crit.score_opmerking }}</small></td>
+                            <td><small><a href="{% url 'stageapp:edit_opdracht_evaluatie_criteria' crit.id %}"><i class="fa-solid fa-pen-to-square"></i></a></small></td>
+                            <td><small><a href="{% url 'stageapp:delete_soe_criteria' crit.id %}"><i class="fas fa-trash"></i></a></small></td>
+                        </tr>
+                    {% empty %}
+                        <td>Er zijn nog geen criteria opgezet.</td>
+                    {% endfor %}
+                {% empty %}
+                    <td>Er zijn nog geen sub categoriën  opgezet.</td>
+                {% endfor %}
+            {% empty %}
+                <td>Er zijn nog geen hoofd categoriën  opgezet.</td>
+            {% endfor %}
+        </div>
+    </table>
+</div>
+<div>
+    <p class="pt-2">
+        <a href="{% url 'stageapp:opdracht_evaluatie' so.id %}"  class='btn btn-primary mt-3'>Terug naar opdracht evaluatie main page</a>
+        <a href="{% url 'stageapp:create_soe_criteria' soe.id %}"  class='btn btn-primary mt-3'>Aanmaak nieuw criteria</a>
+        <a href="{% url 'stageapp:index' %}" role="button" class="btn btn-secondary w-100">Homepage</a>
+    </p>
+</div>
+
+{% endblock content %}
