@@ -211,4 +211,5 @@ __marimo__/
 
 # Database
 *.sqlite3
-*.doc
+*.bmp
+*.saas
